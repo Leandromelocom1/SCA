@@ -1,0 +1,103 @@
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../App.css';
+
+const MaintenancePage = () => {
+  const [defectiveTools, setDefectiveTools] = useState([]);
+  const [problemDescription, setProblemDescription] = useState('');
+  const [solutionDescription, setSolutionDescription] = useState('');
+
+  useEffect(() => {
+    const fetchDefectiveTools = async () => {
+      try {
+        const apiUrl = process.env.REACT_APP_API_URL || 'http://192.168.0.78:5000';
+        const response = await axios.get(`${apiUrl}/tools/defective`);
+        setDefectiveTools(response.data);
+      } catch (error) {
+        console.error("Erro ao buscar as ferramentas com defeito", error);
+      }
+    };
+    fetchDefectiveTools();
+  }, []);
+
+  const handleRepair = async (id) => {
+    try {
+      const apiUrl = process.env.REACT_APP_API_URL || 'http://192.168.0.78:5000';
+      const response = await axios.patch(`${apiUrl}/tools/${id}/repair`, {
+        solutionDescription,
+      });
+
+      if (response.data.status === 'Em estoque') {
+        setDefectiveTools(defectiveTools.filter(tool => tool._id !== id));
+        alert('Ferramenta marcada como reparada e retornada ao estoque.');
+        setSolutionDescription('');
+      } else {
+        alert('Falha ao marcar a ferramenta como reparada.');
+      }
+    } catch (error) {
+      console.error("Erro ao marcar a ferramenta como reparada", error);
+      alert('Erro ao marcar a ferramenta como reparada.');
+    }
+  };
+
+  const handleSendPurchaseRequest = async (toolId) => {
+    try {
+      const apiUrl = process.env.REACT_APP_API_URL || 'http://192.168.0.78:5000';
+      const response = await axios.post(`${apiUrl}/tools/send-purchase-request`, {
+        toolId,
+        problemDescription,
+        solutionDescription,
+      });
+
+      if (response.status === 200) {
+        alert('Solicitação de compra enviada com sucesso.');
+      } else {
+        alert('Falha ao enviar solicitação de compra.');
+      }
+    } catch (error) {
+      console.error('Erro ao enviar solicitação de compra:', error);
+      alert('Erro ao enviar solicitação de compra.');
+    }
+  };
+
+  return (
+    <div className="container mt-4">
+      <h1 className="mb-4">Gestão de Manutenção</h1>
+      <ul className="list-group">
+        {defectiveTools.map((tool) => (
+          <li key={tool._id} className="list-group-item d-flex justify-content-between align-items-start mb-3">
+            <div className="ms-2 me-auto">
+              <div className="fw-bold">Ferramenta: {tool.toolName}</div>
+              <div>Status: {tool.status}</div>
+              <div>
+                <label htmlFor={`problemDescription-${tool._id}`}>Descrição do Problema:</label>
+                <textarea
+                  id={`problemDescription-${tool._id}`}
+                  className="form-control mb-2"
+                  value={problemDescription}
+                  onChange={(e) => setProblemDescription(e.target.value)}
+                />
+              </div>
+              <div>
+                <label htmlFor={`solutionDescription-${tool._id}`}>Peças Necessárias:</label>
+                <textarea
+                  id={`solutionDescription-${tool._id}`}
+                  className="form-control mb-2"
+                  value={solutionDescription}
+                  onChange={(e) => setSolutionDescription(e.target.value)}
+                />
+              </div>
+            </div>
+            <div>
+              <button onClick={() => handleRepair(tool._id)} className="btn btn-success me-2">Marcar como Reparado</button>
+              <button onClick={() => handleSendPurchaseRequest(tool._id)} className="btn btn-primary">Solicitar Peças</button>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default MaintenancePage;
