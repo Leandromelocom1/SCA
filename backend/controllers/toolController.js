@@ -1,14 +1,40 @@
+const axios = require('axios');
+const cheerio = require('cheerio');
 const nodemailer = require('nodemailer');
 const Tool = require('../models/Tool');
 
+// Função para realizar o web scraping no Mercado Livre
+const searchPartOnMercadoLivre = async (partName) => {
+  const searchUrl = `https://lista.mercadolivre.com.br/${encodeURIComponent(partName)}`;
+
+  try {
+    const { data } = await axios.get(searchUrl);
+    const $ = cheerio.load(data);
+
+    const results = [];
+    $('.ui-search-result__content-wrapper').slice(0, 5).each((i, element) => {
+      const title = $(element).find('.ui-search-item__title').text().trim();
+      const link = $(element).find('.ui-search-link').attr('href');
+      const price = $(element).find('.price-tag-fraction').text().trim();
+
+      results.push({ title, link, price });
+    });
+
+    return results;
+  } catch (error) {
+    console.error('Erro ao realizar o scraping:', error);
+    return [];
+  }
+};
+
 // Configurando o transporte SMTP para Locaweb
 const transporter = nodemailer.createTransport({
-  host: 'email-ssl.com.br', // Este é o host SMTP da Locaweb
-  port: 587, // Porta SMTP, geralmente 587 para STARTTLS
-  secure: false, // true para 465, false para outras portas
+  host: 'email-ssl.com.br',
+  port: 587,
+  secure: false,
   auth: {
-    user: process.env.EMAIL_USER, // Seu email na Locaweb
-    pass: process.env.EMAIL_PASS // Sua senha do email na Locaweb
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
   },
   tls: {
     rejectUnauthorized: false
@@ -94,7 +120,6 @@ const updateToolStatus = async (req, res) => {
     if (solutionDescription) tool.solutionDescription = solutionDescription;
 
     await tool.save();
-
     res.json(tool);
   } catch (error) {
     console.error('Erro ao atualizar o status da ferramenta:', error);
@@ -117,7 +142,6 @@ const repairTool = async (req, res) => {
     tool.solutionDescription = solutionDescription || 'Reparação realizada';
 
     await tool.save();
-
     res.json(tool);
   } catch (error) {
     console.error('Erro ao marcar a ferramenta como reparada:', error);
@@ -125,7 +149,7 @@ const repairTool = async (req, res) => {
   }
 };
 
-// Método para enviar email de solicitação de compra de peças
+// Método para enviar email de solicitação de compra de peças com resultados do Mercado Livre
 const sendPurchaseRequest = async (req, res) => {
   const { toolId, problemDescription, solutionDescription } = req.body;
 
@@ -135,9 +159,20 @@ const sendPurchaseRequest = async (req, res) => {
       return res.status(404).json({ error: 'Ferramenta não encontrada' });
     }
 
+    const searchResults = await searchPartOnMercadoLivre(solutionDescription);
+
+    let searchResultsText = '';
+    if (searchResults.length > 0) {
+      searchResultsText = searchResults.map(result => {
+        return `Título: ${result.title}\nPreço: R$ ${result.price}\nLink: ${result.link}\n`;
+      }).join('\n');
+    } else {
+      searchResultsText = 'Nenhum resultado encontrado no Mercado Livre.';
+    }
+
     const mailOptions = {
       from: process.env.EMAIL_USER,
-      to: 'leandro@engemolde.com.br', // Email do departamento de compras na Locaweb
+      to: 'leandro@engemolde.com.br',
       subject: `Solicitação de Compra - Ferramenta: ${tool.toolName}`,
       text: `
         Solicitação de compra de peças para a ferramenta:
@@ -146,11 +181,13 @@ const sendPurchaseRequest = async (req, res) => {
         
         Descrição do Problema: ${problemDescription}
         Peças Necessárias: ${solutionDescription}
+
+        Resultados da busca no Mercado Livre:
+        ${searchResultsText}
       `
     };
 
     await transporter.sendMail(mailOptions);
-
     res.status(200).json({ message: 'Solicitação de compra enviada com sucesso.' });
   } catch (error) {
     console.error('Erro ao enviar solicitação de compra:', error);
