@@ -10,25 +10,45 @@ const ToolRegisterForm = ({ refreshTools }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Verificar se os campos estão preenchidos antes de enviar
+    if (!toolName || !description || !serialNumber) {
+      setError('Todos os campos são obrigatórios.');
+      return;
+    }
+
     try {
       const apiUrl = process.env.REACT_APP_API_URL || 'http://192.168.0.78:5000';
-      await axios.post(`${apiUrl}/tools`, {
+      
+      // Enviar a solicitação para o backend
+      const response = await axios.post(`${apiUrl}/tools`, {
         toolName,
         description,
         serialNumber,
         status,
       });
 
-      setToolName('');
-      setDescription('');
-      setSerialNumber('');
-      setStatus('Em estoque');
-      setError('');
-      refreshTools();
-      alert('Ferramenta registrada com sucesso!');
+      // Verificar se o registro foi bem-sucedido
+      if (response.status === 201) {
+        alert('Ferramenta registrada com sucesso!');
+        setToolName('');
+        setDescription('');
+        setSerialNumber('');
+        setStatus('Em estoque');
+        setError('');
+        refreshTools();
+      } else {
+        throw new Error('Erro inesperado ao registrar a ferramenta.');
+      }
     } catch (error) {
-      console.error('Erro ao registrar a ferramenta', error);
-      setError(error.response?.data?.error || 'Erro ao registrar a ferramenta.');
+      console.error('Erro ao registrar a ferramenta:', error);
+
+      // Verificar se há uma resposta de erro específica do backend
+      if (error.response) {
+        setError(error.response.data.error || 'Erro ao registrar a ferramenta.');
+      } else {
+        setError('Erro de conexão ou erro desconhecido.');
+      }
     }
   };
 

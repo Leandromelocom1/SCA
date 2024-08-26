@@ -1,4 +1,19 @@
+const nodemailer = require('nodemailer');
 const Tool = require('../models/Tool');
+
+// Configurando o transporte SMTP para Locaweb
+const transporter = nodemailer.createTransport({
+  host: 'email-ssl.com.br', // Este é o host SMTP da Locaweb
+  port: 587, // Porta SMTP, geralmente 587 para STARTTLS
+  secure: false, // true para 465, false para outras portas
+  auth: {
+    user: process.env.EMAIL_USER, // Seu email na Locaweb
+    pass: process.env.EMAIL_PASS // Sua senha do email na Locaweb
+  },
+  tls: {
+    rejectUnauthorized: false
+  }
+});
 
 // Método para buscar todas as ferramentas
 const getTools = async (req, res) => {
@@ -13,7 +28,7 @@ const getTools = async (req, res) => {
 // Método para criar uma nova ferramenta
 const createTool = async (req, res) => {
   const { toolName, description, serialNumber } = req.body;
-  console.log('Dados recebidos:', req.body); // Log dos dados recebidos
+  console.log('Dados recebidos:', req.body);
   try {
     const existingTool = await Tool.findOne({ serialNumber });
     if (existingTool) {
@@ -23,7 +38,7 @@ const createTool = async (req, res) => {
       toolName, 
       description, 
       serialNumber, 
-      status: 'Em estoque' // Definindo explicitamente o status aqui
+      status: 'Em estoque'
     });
     await newTool.save();
     res.status(201).json(newTool);
@@ -69,17 +84,15 @@ const updateToolStatus = async (req, res) => {
   const { status, problemDescription, solutionDescription } = req.body;
   
   try {
-    const tool = await Tool.findById(id); // Primeiro, busca a ferramenta pelo ID
+    const tool = await Tool.findById(id);
     if (!tool) {
       return res.status(404).json({ error: 'Ferramenta não encontrada' });
     }
 
-    // Atualiza os campos com os dados recebidos na requisição
     tool.status = status;
     if (problemDescription) tool.problemDescription = problemDescription;
     if (solutionDescription) tool.solutionDescription = solutionDescription;
 
-    // Salva as alterações na ferramenta
     await tool.save();
 
     res.json(tool);
@@ -112,6 +125,39 @@ const repairTool = async (req, res) => {
   }
 };
 
+// Método para enviar email de solicitação de compra de peças
+const sendPurchaseRequest = async (req, res) => {
+  const { toolId, problemDescription, solutionDescription } = req.body;
+
+  try {
+    const tool = await Tool.findById(toolId);
+    if (!tool) {
+      return res.status(404).json({ error: 'Ferramenta não encontrada' });
+    }
+
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: 'leandro@engemolde.com.br', // Email do departamento de compras na Locaweb
+      subject: `Solicitação de Compra - Ferramenta: ${tool.toolName}`,
+      text: `
+        Solicitação de compra de peças para a ferramenta:
+        Nome: ${tool.toolName}
+        Número de Série: ${tool.serialNumber}
+        
+        Descrição do Problema: ${problemDescription}
+        Peças Necessárias: ${solutionDescription}
+      `
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    res.status(200).json({ message: 'Solicitação de compra enviada com sucesso.' });
+  } catch (error) {
+    console.error('Erro ao enviar solicitação de compra:', error);
+    res.status(500).json({ error: 'Erro ao enviar solicitação de compra.' });
+  }
+};
+
 module.exports = {
   getTools,
   createTool,
@@ -119,5 +165,6 @@ module.exports = {
   getWithdrawnTools,
   getDefectiveTools,
   updateToolStatus,
-  repairTool // Exporta a função de reparação
+  repairTool,
+  sendPurchaseRequest
 };
