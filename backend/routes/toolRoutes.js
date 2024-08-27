@@ -8,16 +8,18 @@ const {
   getDefectiveTools,
   updateToolStatus,
   repairTool,
-  sendPurchaseRequest // Importando a nova função
+  sendPurchaseRequest,
+  markPartArrived // Importe a nova função
 } = require('../controllers/toolController');
 
 router.get('/', getTools);
 router.get('/available', getAvailableTools);
 router.get('/withdrawn', getWithdrawnTools);
-router.get('/defective', getDefectiveTools);
+router.get('/defective', getDefectiveTools); 
 router.post('/', createTool);
 router.patch('/:id/status', updateToolStatus);
-router.patch('/:id/repair', repairTool);
-router.post('/send-purchase-request', sendPurchaseRequest); // Rota para enviar solicitação de compra
+router.patch('/:id/repair', repairTool); 
+router.post('/send-purchase-request', sendPurchaseRequest); 
+router.patch('/:id/part-arrived', markPartArrived); // Nova rota para marcar a chegada da peça
 
 module.exports = router;

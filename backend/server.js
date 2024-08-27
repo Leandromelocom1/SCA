@@ -59,6 +59,9 @@ routes.forEach((route) => {
   app.use(route.path, route.route);
 });
 
+// Iniciar a escuta de emails
+require('./emailListener');
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

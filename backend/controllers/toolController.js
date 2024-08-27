@@ -195,6 +195,27 @@ const sendPurchaseRequest = async (req, res) => {
   }
 };
 
+// Método para marcar que a peça chegou
+const markPartArrived = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const tool = await Tool.findById(id);
+    if (!tool) {
+      return res.status(404).json({ error: 'Ferramenta não encontrada' });
+    }
+
+    tool.isPartArrived = true; // Marca a peça como chegada
+    tool.status = 'Em estoque'; // Atualiza o status da ferramenta para "Em estoque"
+    await tool.save();
+
+    res.status(200).json({ message: 'Peça marcada como chegada com sucesso e status atualizado para Em estoque.' });
+  } catch (error) {
+    console.error('Erro ao marcar chegada da peça:', error);
+    res.status(500).json({ error: 'Erro ao marcar chegada da peça.' });
+  }
+};
+
 module.exports = {
   getTools,
   createTool,
@@ -203,5 +224,6 @@ module.exports = {
   getDefectiveTools,
   updateToolStatus,
   repairTool,
-  sendPurchaseRequest
+  sendPurchaseRequest,
+  markPartArrived // Exporta a nova função
 };

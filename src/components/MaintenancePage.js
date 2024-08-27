@@ -7,6 +7,8 @@ const MaintenancePage = () => {
   const [defectiveTools, setDefectiveTools] = useState([]);
   const [problemDescription, setProblemDescription] = useState('');
   const [solutionDescription, setSolutionDescription] = useState('');
+  const [isRequestSent, setIsRequestSent] = useState(false);
+  const [purchaseResponse, setPurchaseResponse] = useState('');
 
   useEffect(() => {
     const fetchDefectiveTools = async () => {
@@ -51,6 +53,7 @@ const MaintenancePage = () => {
       });
 
       if (response.status === 200) {
+        setIsRequestSent(true);
         alert('Solicitação de compra enviada com sucesso.');
       } else {
         alert('Falha ao enviar solicitação de compra.');
@@ -58,6 +61,25 @@ const MaintenancePage = () => {
     } catch (error) {
       console.error('Erro ao enviar solicitação de compra:', error);
       alert('Erro ao enviar solicitação de compra.');
+    }
+  };
+
+  const handlePartArrived = async (toolId) => {
+    try {
+      const apiUrl = process.env.REACT_APP_API_URL || 'http://192.168.0.78:5000';
+      const response = await axios.patch(`${apiUrl}/tools/${toolId}/part-arrived`);
+
+      if (response.status === 200) {
+        alert('Peça marcada como chegada.');
+        setDefectiveTools(defectiveTools.map(tool => 
+          tool._id === toolId ? { ...tool, isPartArrived: true, status: 'Em estoque' } : tool
+        ));
+      } else {
+        alert('Falha ao marcar a chegada da peça.');
+      }
+    } catch (error) {
+      console.error('Erro ao marcar chegada da peça:', error);
+      alert('Erro ao marcar chegada da peça.');
     }
   };
 
@@ -77,6 +99,7 @@ const MaintenancePage = () => {
                   className="form-control mb-2"
                   value={problemDescription}
                   onChange={(e) => setProblemDescription(e.target.value)}
+                  disabled={isRequestSent}
                 />
               </div>
               <div>
@@ -86,12 +109,42 @@ const MaintenancePage = () => {
                   className="form-control mb-2"
                   value={solutionDescription}
                   onChange={(e) => setSolutionDescription(e.target.value)}
+                  disabled={isRequestSent}
                 />
               </div>
+              {purchaseResponse && (
+                <div>
+                  <label>Resposta de Compras:</label>
+                  <textarea
+                    className="form-control mb-2"
+                    value={purchaseResponse}
+                    readOnly
+                  />
+                </div>
+              )}
             </div>
             <div>
-              <button onClick={() => handleRepair(tool._id)} className="btn btn-success me-2">Marcar como Reparado</button>
-              <button onClick={() => handleSendPurchaseRequest(tool._id)} className="btn btn-primary">Solicitar Peças</button>
+              <button
+                onClick={() => handleRepair(tool._id)}
+                className="btn btn-success me-2"
+                disabled={isRequestSent}
+              >
+                Marcar como Reparado
+              </button>
+              <button
+                onClick={() => handleSendPurchaseRequest(tool._id)}
+                className="btn btn-primary me-2"
+                disabled={isRequestSent}
+              >
+                Solicitar Peças
+              </button>
+              <button
+                onClick={() => handlePartArrived(tool._id)}
+                className={`btn ${tool.isPartArrived ? 'btn-warning' : 'btn-secondary'}`}
+                disabled={tool.isPartArrived}
+              >
+                {tool.isPartArrived ? 'Peça Chegou' : 'Marcar Chegada de Peça'}
+              </button>
             </div>
           </li>
         ))}
