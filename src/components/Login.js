@@ -13,11 +13,13 @@ const Login = ({ onLogin }) => {
     try {
       const apiUrl = process.env.REACT_APP_API_URL || 'http://192.168.0.78:5000';
       const response = await axios.post(`${apiUrl}/auth/login`, { username, password });
-
-      // Salva o token no localStorage e define o estado de autenticação
+  
+      // Salva o token e as permissões no localStorage
       localStorage.setItem('token', response.data.token);
+      localStorage.setItem('permissions', JSON.stringify(response.data.permissions));
+  
       onLogin(true);
-
+  
       // Redireciona para o dashboard após o login
       navigate('/');
     } catch (error) {
@@ -25,7 +27,6 @@ const Login = ({ onLogin }) => {
       setError(error.response?.data?.error || 'Erro ao fazer login.');
     }
   };
-
   return (
     <form onSubmit={handleSubmit} className="container mt-4 login-form">
       <h2 className="mb-4">Login</h2>

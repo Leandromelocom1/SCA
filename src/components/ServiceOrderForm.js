@@ -6,7 +6,8 @@ const ServiceOrderForm = () => {
   const [equipment, setEquipment] = useState('');
   const [priority, setPriority] = useState('Baixa');
   const [requester, setRequester] = useState('');
-  const [equipments, setEquipments] = useState([]); // Estado para armazenar os equipamentos
+  const [createdAt, setCreatedAt] = useState(new Date().toISOString().substring(0, 10)); // Define a data atual
+  const [equipments, setEquipments] = useState([]);
 
   useEffect(() => {
     const fetchEquipments = async () => {
@@ -30,7 +31,8 @@ const ServiceOrderForm = () => {
         equipment,
         priority,
         requester,
-        status: 'Pendente',
+        createdAt, // Inclui a data de criação na solicitação
+        status: 'Aberta',
       });
 
       alert('Ordem de serviço criada com sucesso!');
@@ -98,6 +100,16 @@ const ServiceOrderForm = () => {
             value={requester}
             onChange={(e) => setRequester(e.target.value)}
             required
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="createdAt" className="form-label">Data de Abertura:</label>
+          <input
+            type="date"
+            id="createdAt"
+            className="form-control"
+            value={createdAt}
+            disabled // Campo desabilitado para edição
           />
         </div>
         <button type="submit" className="btn btn-primary">Criar OS</button>
