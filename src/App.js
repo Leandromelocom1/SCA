@@ -26,11 +26,13 @@ import VehicleReturnForm from './components/VehicleReturnForm';
 import VehicleDashboard from './components/VehicleDashboard';
 import DriverRegisterForm from './components/DriverRegisterForm';
 import ManualConsultationPage from './components/ManualConsultationPage';
+import ServiceOrderForm from './components/ServiceOrderForm';
+import ServiceOrderManagement from './components/ServiceOrderManagement'; // Importação do novo componente
+import EquipmentForm from './components/EquipmentForm'; // Importação do novo componente para equipamentos
 import './App.css';
 import logo from './assets/logo.png';
 import axios from 'axios';
 
-// Interceptor de requisições para adicionar o token JWT ao cabeçalho
 axios.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
@@ -121,6 +123,9 @@ function App() {
                               <NavDropdown title="Manutenção" id="manutencao-nav-dropdown">
                                 <NavDropdown.Item as={Link} to="/manutencao">Gestão de Manutenção</NavDropdown.Item>
                                 <NavDropdown.Item as={Link} to="/consulta-manual">Consulta de Manuais</NavDropdown.Item>
+                                <NavDropdown.Item as={Link} to="/ordem-servico">Ordem de Serviço</NavDropdown.Item>
+                                <NavDropdown.Item as={Link} to="/atendimento-ordem-servico">Atendimento de OS</NavDropdown.Item>
+                                <NavDropdown.Item as={Link} to="/equipamentos">Equipamentos</NavDropdown.Item> {/* Nova rota para cadastro de equipamentos */}
                               </NavDropdown>
                               <NavDropdown title="Relatórios" id="relatorios-nav-dropdown">
                                 <NavDropdown.Item as={Link} to="/relatorios">Relatórios de Ferramentas</NavDropdown.Item>
@@ -173,11 +178,15 @@ function App() {
                           <Route path="/gestao-frota" element={<VehicleExitForm />} />
                           <Route path="/retorno-veiculo" element={<VehicleReturnForm />} />
                           <Route path="/dashboard-veiculos" element={<VehicleDashboard />} />
+                          <Route path="/ordem-servico" element={<ServiceOrderForm />} />
+                          <Route path="/atendimento-ordem-servico" element={<ServiceOrderManagement />} /> {/* Atualizada para ServiceOrderManagement */}
+                          <Route path="/equipamentos" element={<EquipmentForm />} /> {/* Rota para cadastro de equipamentos */}
                         </>
                       ) : (
                         <Route path="/" element={<Login onLogin={setIsAuthenticated} />} />
                       )}
-                    </Routes>
+                   
+                   </Routes>
                   </Container>
 
                   {isAuthenticated && searchResults.length > 0 && (

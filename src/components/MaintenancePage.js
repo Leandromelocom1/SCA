@@ -67,12 +67,12 @@ const MaintenancePage = () => {
   const handlePartArrived = async (toolId) => {
     try {
       const apiUrl = process.env.REACT_APP_API_URL || 'http://192.168.0.78:5000';
-      const response = await axios.patch(`${apiUrl}/tools/${toolId}/part-arrived`);
+      const response = await axios.patch(`${apiUrl}/tools/${toolId}/mark-part-arrived`);
 
       if (response.status === 200) {
         alert('Peça marcada como chegada.');
         setDefectiveTools(defectiveTools.map(tool => 
-          tool._id === toolId ? { ...tool, isPartArrived: true, status: 'Em estoque' } : tool
+          tool._id === toolId ? { ...tool, isPartArrived: true } : tool
         ));
       } else {
         alert('Falha ao marcar a chegada da peça.');
@@ -112,12 +112,12 @@ const MaintenancePage = () => {
                   disabled={isRequestSent}
                 />
               </div>
-              {purchaseResponse && (
+              {tool.isPartArrived && (
                 <div>
                   <label>Resposta de Compras:</label>
                   <textarea
                     className="form-control mb-2"
-                    value={purchaseResponse}
+                    value="Peça disponível no estoque"
                     readOnly
                   />
                 </div>
