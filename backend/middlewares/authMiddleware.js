@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
+const User = require('../models/User');
 
 dotenv.config();
 
@@ -9,20 +10,25 @@ if (!SECRET_KEY) {
   throw new Error("SECRET_KEY não definida no ambiente. Por favor, defina a chave no arquivo .env.");
 }
 
-const authenticateJWT = (req, res, next) => {
+const authenticateJWT = async (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (authHeader) {
     const token = authHeader.split(' ')[1];
 
-    jwt.verify(token, SECRET_KEY, (err, user) => {
-      if (err) {
+    try {
+      const decoded = jwt.verify(token, SECRET_KEY);
+      const user = await User.findById(decoded.userId);
+
+      if (!user) {
         return res.sendStatus(403); // Forbidden
       }
 
       req.user = user;
       next();
-    });
+    } catch (err) {
+      return res.sendStatus(403); // Forbidden
+    }
   } else {
     res.sendStatus(401); // Unauthorized
   }
