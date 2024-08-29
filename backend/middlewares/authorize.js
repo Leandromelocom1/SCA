@@ -9,4 +9,4 @@ const authorize = (module, action) => {
   };
   
   module.exports = authorize;
-  
+   

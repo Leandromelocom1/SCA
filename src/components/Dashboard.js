@@ -1,6 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../setupAxios';
-import { LineChart, Line, PieChart, Pie, Cell, YAxis as RechartsYAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import {
+  LineChart,
+  Line,
+  PieChart,
+  Pie,
+  Cell,
+  YAxis as RechartsYAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from 'recharts';
 
 const Dashboard = () => {
   const [dataFerramentas, setDataFerramentas] = useState([]);
@@ -13,13 +24,18 @@ const Dashboard = () => {
         const response = await axios.get(`${apiUrl}/tools`);
         processToolData(response.data);
       } catch (error) {
-        console.error("Erro ao buscar as ferramentas", error);
+        console.error('Erro ao buscar as ferramentas:', error);
       }
     };
     fetchTools();
   }, []);
 
   const processToolData = (tools) => {
+    if (!tools || tools.length === 0) {
+      console.warn('Nenhuma ferramenta encontrada.');
+      return;
+    }
+
     const statusCounts = tools.reduce((acc, tool) => {
       acc[tool.status] = (acc[tool.status] || 0) + 1;
       return acc;
@@ -44,19 +60,21 @@ const Dashboard = () => {
       { name: 'Reparado', value: statusCounts['Reparado'] || 0 },
     ]);
 
-    setDataEntradas(Object.keys(entradasSaidas).map(key => ({
-      name: key,
-      entradas: entradasSaidas[key].entradas,
-      saídas: entradasSaidas[key].saídas,
-    })));
+    setDataEntradas(
+      Object.keys(entradasSaidas).map((key) => ({
+        name: key,
+        entradas: entradasSaidas[key].entradas,
+        saídas: entradasSaidas[key].saídas,
+      }))
+    );
   };
 
   const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
   return (
     <div className="dashboard">
-      <h2>Dashboard</h2>
-      
+      <h2>DASHBOARD</h2>
+
       <div className="chart-container">
         <h3>Status das Ferramentas</h3>
         <ResponsiveContainer width="50%" height={300}>
@@ -86,14 +104,23 @@ const Dashboard = () => {
           <LineChart
             data={dataEntradas}
             margin={{
-              top: 5, right: 30, left: 20, bottom: 5,
+              top: 5,
+              right: 30,
+              left: 20,
+              bottom: 5,
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
             <RechartsYAxis yAxisId="left" />
             <Tooltip />
             <Legend />
-            <Line yAxisId="left" type="monotone" dataKey="entradas" stroke="#8884d8" activeDot={{ r: 8 }} />
+            <Line
+              yAxisId="left"
+              type="monotone"
+              dataKey="entradas"
+              stroke="#8884d8"
+              activeDot={{ r: 8 }}
+            />
             <Line yAxisId="left" type="monotone" dataKey="saídas" stroke="#82ca9d" />
           </LineChart>
         </ResponsiveContainer>

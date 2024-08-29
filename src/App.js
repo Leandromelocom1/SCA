@@ -30,7 +30,7 @@ import ManualConsultationPage from './components/ManualConsultationPage';
 import ServiceOrderForm from './components/ServiceOrderForm';
 import ServiceOrderManagement from './components/ServiceOrderManagement';
 import EquipmentForm from './components/EquipmentForm';
-import './App.css';
+// import './App.css';
 import logo from './assets/logo.png';
 import axios from 'axios';
 
