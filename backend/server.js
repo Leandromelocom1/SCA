@@ -18,7 +18,7 @@ const gptRoutes = require('./routes/gptRoutes');
 const toolRoutes = require('./routes/toolRoutes');
 const serviceOrderRoutes = require('./routes/serviceOrderRoutes');
 const equipmentRoutes = require('./routes/equipmentRoutes');
-const epiRoutes = require('./routes/epiRoutes'); // Importando as rotas de EPIs
+// const epiRoutes = require('./routes/epiRoutes'); // Importando as rotas de EPIs
 
 const Tool = require('./models/Tool'); // Importar o modelo Tool
 
@@ -75,7 +75,7 @@ const routes = [
   { path: '/tools', route: toolRoutes },
   { path: '/service-orders', route: serviceOrderRoutes }, // Registrar a rota de OS
   { path: '/equipments', route: equipmentRoutes }, // Registrar a rota de equipamentos
-  { path: '/epis', route: epiRoutes }, // Registrar a rota de EPIs
+  // { path: '/epis', route: epiRoutes }, // Registrar a rota de EPIs
 ];
 
 routes.forEach((route) => {
