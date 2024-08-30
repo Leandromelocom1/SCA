@@ -1,355 +1,3 @@
-/* /* Estilo para o contêiner de login
-/* .login-container {
-  background-color: #ffffff;
-  padding: 40px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 100px;
-  width: 100%;
-  margin: 100px auto;
-  text-align: center;
-} */
-
-/* Estilo para o título do formulário de login
-.login-container h2 {
-  margin-bottom: 10px;
-  color: #333;
-  font-size: 24px;
-  font-weight: 100;
- 
-} */
-
-/* Estilo para os grupos de formulário */
-/* .login-form .form-group {
-  margin-bottom: 15px;
-  text-align: left;
-  width: 320px;
-} */
-
-/* Estilo para os rótulos do formulário */
-/* .login-form label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: #333;
-  text-align: left;
-} */
-
-/* Estilo para os campos de entrada do formulário */
-/* .login-form input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
- } */
-
-/* Estilo para o botão de login */
-/* .login-form button {
-  width: 10%;
-  padding: 10px;
-  background-color: #e74b02;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
-  margin-top: 10px;
-} */
-
-/* Estilo para o botão de login ao passar o mouse */
-/* .login-form button:hover {
-  background-color: #0056b3;
-} */
-
-/* Estilo para a mensagem de erro
-.login-form .error {
-  color: red;
-  margin-top: 10px;
-} */
-
-/* Estilo para o rodapé */
-/* .footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 40px;
-  background-color: #212121;
-  padding-top: 10px;
-  text-align: center;
-  color: #fff;
-}
-
-footer a {
-  color: #ffffff;
-}
-
-@media (max-width: 600px) {
-  .login-container {
-    padding: 20px;
-  }
-
-  .login-container h2 {
-    font-size: 20px;
-  }
-} */
-
-/* Estilo para o contêiner principal */
-/* .container {
-  max-width: 1700px;
-  margin: 20px auto;
-  padding: 10px;
-  border-radius: 30px;
-  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.1);
-} */
-
-/* Estilo para o título Estoque Ferramentas */
-/* h1 {
-  font-size: 24px;
-  font-weight: 500;
-  margin-bottom: 20px;
-  text-align: center;
-  color: #0a0a0a;
-}
-
-/* Estilo para os itens da lista */
-/* .list-group-item {
-  background-color: #f8f9fa;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 15px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-wrap: wrap;
-} */
-
-/* Estilo para o texto em negrito */
-/* .fw-bold {
-  font-weight: 600;
-  margin-bottom: 5px;
-}
-
-/* Estilo para os campos de formulário */
-/* .form-control {
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  font-size: 13px;
-  width: 100%;
-  box-sizing: border-box;
-} */
-
-/* Estilo para as áreas de texto */
-/* textarea.form-control {
-  height: 80px;
-} */
-
-/* Estilo para os botões */
-/* .btn {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 20px;
-  color: #fff;
-  cursor: pointer;
-  font-size: 14px;
-  margin-bottom: 10px;
-} */
-
-/* Estilo para os botões de Gestão de Manutenção */
-/* .btn-warning {
-  background-color: #f93808;
-}
-
-.btn-warning:hover {
-  background-color: #e0a800;
-}
-
-.btn-success {
-  background-color: #28a745;
-}
-
-.btn-success:hover {
-  background-color: #218838;
-}
-
-.btn-primary {
-  background-color: #007bff;
-}
-
-.btn-primary:hover {
-  background-color: #0056b3;
-}
-
-/* Estilo para a margem entre itens */
-/* .mb-3 {
-  margin-bottom: 10px !important;
-}  */
-
-/* Estilo para espaçamento entre itens da lista */
-/* .ms-2 {
-  margin-left: 8px !important;
-}
-
-.me-2 {
-  margin-right: 8px !important;
-}
-
-.me-auto {
-  margin-right: auto !important;
-} */
-
-/* Estilo para o formulário de cadastro de ativos */
-/* .asset-register-form,
-.tool-register-form,
-.vehicle-exit-form,
-.vehicle-return-form {
-  max-width: 800px;
-  margin: 0 auto 40px auto;
-}
-
-.asset-register-form h2,
-.tool-register-form h2,
-.vehicle-exit-form h2,
-.vehicle-return-form h2 {
-  margin-bottom: 40px;
-  text-align: center;
-}
-
-.asset-register-form .form-group,
-.tool-register-form .form-group,
-.vehicle-exit-form .form-group,
-.vehicle-return-form .form-group {
-  margin-bottom: 30px;
-}
-
-.asset-register-form label,
-.tool-register-form label,
-.vehicle-exit-form label,
-.vehicle-return-form label {
-  display: block;
-  margin-bottom: 0px;
-  font-weight: bold;
-}
-
-.asset-register-form input,
-.asset-register-form select,
-.asset-register-form textarea,
-.tool-register-form input,
-.tool-register-form select,
-.tool-register-form textarea,
-.vehicle-exit-form input,
-.vehicle-exit-form select,
-.vehicle-exit-form textarea,
-.vehicle-return-form input,
-.vehicle-return-form select,
-.vehicle-return-form textarea {
-  width: 100%;
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-}
- */
-/* Estilo para o cabeçalho */
-/* .header-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  background-color: #f8f9fa;
-}
-
-.search-container {
-  position: relative;
-  width: 300px;
-}
-
-.search-container input {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-} */
-
-/* Estilos para os resultados da pesquisa */
-/* .search-results {
-  position: absolute;
-  top: 80px;
-  right: 20px;
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  max-width: 400px;
-  width: 100%;
-  z-index: 1000;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 10px;
-}
-
-.search-results ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.search-results li {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-}
-
-.search-results li:last-child {
-  border-bottom: none;
-}
-
-.search-results li:hover {
-  background-color: #f1f1f1;
-  cursor: pointer;
-} */ 
-
-/* Media queries para tornar o sistema responsivo */
-/* @media (max-width: 768px) {
-  .header-content {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .search-container {
-    width: 100%;
-    margin-top: 10px;
-  }
-
-  .search-results {
-    top: 50px;
-    right: 0;
-    left: 0;
-    max-width: 100%;
-  }
-} */ 
-/* 
-@media (max-width: 576px) {
-  .login-container {
-    padding: 20px;
-  }
-
-  .container {
-    padding: 10px;
-  }
-
-  .asset-register-form, .asset-type-register-form {
-    max-width: 100%;
-    padding: 0 10px;
-  } */
-/* 
-  .list-group-item {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-} */ 
-
 /* Estilos Globais */
 body {
     font-family: 'Roboto', sans-serif;
@@ -358,30 +6,30 @@ body {
     margin: 0;
     padding: 0;
     line-height: 1.6;
-  }
-  
-  /* Contêiner Principal */
-  .container {
-    max-width: 1500px;
-    margin: 40px auto;
-    padding: 20px;
+}
+
+/* Contêiner Principal */
+.container {
+    max-width: 1600px;
+    margin: 10px auto;
+    padding: 25px;
     background-color: #ffffff;
-    border-radius: 12px;
-    /* box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); */
-  }
-  
-  /* Títulos */
-  h1, h2, h3, h4, h5, h6 {
+    border-radius: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Títulos */
+h1, h2, h3, h4, h5, h6 {
     color: #2c3e50;
-    font-weight: 800;
-    margin-bottom: 10px;
+    font-weight: 700;
+    margin-bottom: 15px;
     font-family: 'Poppins', sans-serif;
-  }
-  
-  /* Botões Modernos */
-  .btn {
+}
+
+/* Botões Modernos */
+.btn {
     display: inline-block;
-    padding: 10px 25px;
+    padding: 12px 30px;
     border-radius: 30px;
     text-decoration: none;
     font-size: 16px;
@@ -389,51 +37,51 @@ body {
     border: none;
     cursor: pointer;
     font-weight: 600;
-  }
-  
-  .btn-primary {
-    background: linear-gradient(135deg, #1abc9c, #16a085);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #3498db, #2980b9);
     color: white;
-  }
-  
-  .btn-primary:hover {
-    background: linear-gradient(135deg, #16a085, #1abc9c);
-    transform: translateY(-2px);
-  }
-  
-  .btn-success {
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #2980b9, #3498db);
+    transform: translateY(-3px);
+}
+
+.btn-success {
     background: linear-gradient(135deg, #27ae60, #2ecc71);
     color: white;
-  }
-  
-  .btn-success:hover {
+}
+
+.btn-success:hover {
     background: linear-gradient(135deg, #2ecc71, #27ae60);
-    transform: translateY(-2px);
-  }
-  
-  .btn-danger {
+    transform: translateY(-3px);
+}
+
+.btn-danger {
     background: linear-gradient(135deg, #e74c3c, #c0392b);
     color: white;
-  }
-  
-  .btn-danger:hover {
+}
+
+.btn-danger:hover {
     background: linear-gradient(135deg, #c0392b, #e74c3c);
-    transform: translateY(-2px);
-  }
-  
-  /* Estilo para Formulários */
-  .form-group {
-    margin-bottom: 20px;
-  }
-  
-  label {
+    transform: translateY(-3px);
+}
+
+/* Estilo para Formulários */
+.form-group {
+    margin-bottom: 25px;
+}
+
+label {
     font-weight: 500;
     color: #34495e;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     display: block;
-  }
-  
-  input, select, textarea {
+}
+
+input, select, textarea {
     width: 100%;
     padding: 12px;
     border-radius: 8px;
@@ -442,15 +90,15 @@ body {
     box-sizing: border-box;
     background-color: #ecf0f1;
     transition: border-color 0.3s ease;
-  }
-  
-  input:focus, select:focus, textarea:focus {
+}
+
+input:focus, select:focus, textarea:focus {
     border-color: #3498db;
     outline: none;
-  }
-  
-  /* Estilo para Listas */
-  .list-group-item {
+}
+
+/* Estilo para Listas */
+.list-group-item {
     background-color: #ffffff;
     border: 1px solid #dfe6e9;
     border-radius: 8px;
@@ -460,63 +108,63 @@ body {
     justify-content: space-between;
     align-items: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .list-group-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Rodapé */
-  .footer {
+}
+
+.list-group-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Rodapé */
+.footer {
     text-align: center;
     padding: 20px;
     background-color: #34495e;
     color: white;
-    margin-top: 40px;
-    border-radius: 12px;
+    margin-top: 50px;
+    border-radius: 16px;
     font-size: 14px;
-  }
-  
-  .footer a {
+}
+
+.footer a {
     color: #ffffff;
     text-decoration: none;
-  }
-  
-  .footer a:hover {
+}
+
+.footer a:hover {
     text-decoration: underline;
-  }
-  
-  /* Elementos de Cabeçalho */
-  .header-content {
+}
+
+/* Elementos de Cabeçalho */
+.header-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px;
     background-color: #ffffff;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-  }
-  
-  /* Barra de Pesquisa */
-  .search-container {
+    border-radius: 16px;
+}
+
+/* Barra de Pesquisa */
+.search-container {
     position: relative;
     width: 300px;
-  }
-  
-  .search-container input {
+}
+
+.search-container input {
     width: 100%;
     padding: 12px;
     border-radius: 8px;
     border: 1px solid #dfe6e9;
     transition: border-color 0.3s ease;
-  }
-  
-  .search-container input:focus {
+}
+
+.search-container input:focus {
     border-color: #3498db;
-  }
-  
-  .search-results {
+}
+
+.search-results {
     position: absolute;
     top: 50px;
     left: 0;
@@ -527,117 +175,134 @@ body {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     z-index: 1000;
     padding: 10px;
-  }
-  
-  .search-results ul {
+}
+
+.search-results ul {
     list-style: none;
     padding: 0;
     margin: 0;
-  }
-  
-  .search-results li {
+}
+
+.search-results li {
     padding: 10px;
     border-bottom: 1px solid #dfe6e9;
     transition: background-color 0.3s ease;
-  }
-  
-  .search-results li:hover {
+}
+
+.search-results li:hover {
     background-color: #ecf0f1;
-  }
-  
-  /* Media Queries para Responsividade */
-  @media (max-width: 768px) {
+}
+
+/* Media Queries para Responsividade */
+@media (max-width: 768px) {
     .header-content {
-      flex-direction: column;
-      align-items: flex-start;
+        flex-direction: column;
+        align-items: flex-start;
     }
-  
+
     .search-container {
-      width: 100%;
-      margin-top: 10px;
+        width: 100%;
+        margin-top: 10px;
     }
-  
+
     .search-results {
-      top: 40px;
-      left: 0;
-      right: 0;
+        top: 40px;
+        left: 0;
+        right: 0;
     }
-  }
-  
-  @media (max-width: 576px) {
+}
+
+@media (max-width: 576px) {
     .container {
-      padding: 15px;
+        padding: 20px;
     }
-  
+
     .btn {
-      width: 100%;
+        width: 100%;
     }
-  
+
     .list-group-item {
-      flex-direction: column;
-      align-items: flex-start;
+        flex-direction: column;
+        align-items: flex-start;
     }
-  
+
     h1, h2, h3, h4, h5, h6 {
-      text-align: center;
+        text-align: center;
     }
-  }
-  
-  /* Estilo para o menu de navegação */
+}
+
+/* Ajustes na Barra de Navegação */
+.navbar {
+    background-color: #2c3e50;
+    padding: 15px;
+    border-radius: 12px;
+}
+
+ .navbar-brand {
+    color: #070808;
+    font-size: 1.8rem;
+    font-weight: 700;
+} 
+
 .navbar-nav .nav-link {
-    color: #ffffff; 
-    font-weight: 500;
-    font-size: 16px;
+    color: #0a0c0c;
+    font-size: 1.2rem;
     margin-right: 20px;
-    transition: color 0.3s ease;
-  }
-  
-  .navbar-nav .nav-link:hover {
-    color: #f0ad4e; 
-  }
-  
-  /* .navbar-dark .navbar-nav .nav-link.active, */
-  .navbar-dark .navbar-nav .show > .nav-link {
-    color: #f0ad4e; 
-   
-  }
-  
-  /* Se estiver usando um dropdown */
-  .navbar-nav .dropdown-menu {
-    background-color: #343a40; 
-  }
-  
-  .navbar-nav .dropdown-item {
-    color: #ffffff;
-  }
-  
-  .navbar-nav .dropdown-item:hover {
-    background-color: #f0ad4e; 
-    color: #ffffff; 
-  }
-  
-  /* Estilo para o campo de pesquisa, Define a cor do texto como preto */
+}
+
+.navbar-nav .nav-link:hover {
+    color: #1abc9c;
+}
+
+/* Estilo para o Campo de Pesquisa na Barra de Navegação */
 .search-container input {
-    width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    color: #000;
-  }
-  
-  .search-container input::placeholder {
-    color: #000; 
-  }
-  
-  /* Estilo para o botão de pesquisa */
-  .search-container button {
-    color: #000; 
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .search-container button:hover {
-    background-color: #f1f1f1; /* Muda a cor do fundo ao passar o mouse */
-  }
-  
+    width: 250px;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #7f8c8d;
+    color: #2c3e50;
+    transition: border-color 0.3s ease;
+}
+
+.search-container input::placeholder {
+    color: #7f8c8d;
+}
+
+.search-container button {
+    color: #2c3e50;
+    background-color: #ecf0f1;
+    border: 1px solid #7f8c8d;
+    border-radius: 8px;
+    margin-left: 5px;
+    padding: 8px 16px;
+}
+
+.search-container button:hover {
+    background-color: #bdc3c7;
+}
+
+/* Media Queries para Responsividade na Barra de Navegação */
+@media (max-width: 768px) {
+    .navbar-nav {
+        display: none;
+    }
+
+    .navbar-nav.active {
+        display: block;
+    }
+
+    .search-container {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .search-container input {
+        width: 100%;
+    }
+}
+
+@media (min-width: 769px) {
+    .navbar-nav {
+        display: flex;
+    }
+}
